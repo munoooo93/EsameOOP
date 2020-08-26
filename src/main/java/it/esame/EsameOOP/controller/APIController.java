@@ -17,7 +17,6 @@ import it.esame.EsameOOP.utils.Dropbox;
 public class APIController {
 	@PostMapping("/data")
 	public String getData(@RequestBody String body) {
-		
 		String requestPath = "";
 		try {
 			JSONObject bodyJson = new JSONObject(body);
@@ -44,6 +43,32 @@ public class APIController {
 			return ex.getMessage();
 		}
 	}
-	//@PostMapping("/metadata")
+	
+	@GetMapping("/metadata")
+	public String getMetadata() {
+		JSONArray metadata = new JSONArray();
+		
+		try {
+			metadata.put(new JSONObject()
+						.put("sourceField", "name")
+						.put("type", "string"))
+					.put(new JSONObject()
+						.put("sourceField", "path")
+						.put("type", "string"))
+					.put(new JSONObject()
+						.put("sourceField", "size")
+						.put("type", "integer"))
+					.put(new JSONObject()
+						.put("sourceField", "deleted")
+						.put("type", "boolean"))
+					.put(new JSONObject()
+						.put("sourceField", "downloadable")
+						.put("type", "boolean"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return metadata.toString();
+	}
 	//@GetMapping("/stats/")
 }
