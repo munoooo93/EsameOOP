@@ -10,15 +10,13 @@ public class FileInfo {
 	private String	name;
 	private String	path;
 	private long	size;
-	private boolean	deleted;
 	private boolean downloadable;
 	
-	public FileInfo(String name, String path, long size, boolean deleted, boolean downloadable) {
+	public FileInfo(String name, String path, long size, boolean downloadable) {
 		super();
 		this.name = name;
 		this.path = path;
 		this.size = size;
-		this.deleted = deleted;
 		this.downloadable = downloadable;
 	}
 
@@ -46,14 +44,6 @@ public class FileInfo {
 		this.size = size;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
 	public boolean isDownloadable() {
 		return downloadable;
 	}
@@ -78,7 +68,7 @@ public class FileInfo {
 		basicInfo.put("name", this.getName());
 		basicInfo.put("path", this.getPath());
 		basicInfo.put("size", this.getSize());
-		basicInfo.put("deleted", this.isDeleted());
+		basicInfo.put("downloadable", this.isDownloadable());
 		
 		return basicInfo;
 	}
@@ -92,7 +82,6 @@ public class FileInfo {
 						o.getString("name"),
 						o.getString("path_display"),
 						o.getLong("size"),
-						(o.getString(".tag").equals("deleted")) ? true : false,
 						o.getBoolean("is_downloadable")				
 					);
 		} catch (JSONException e) {
