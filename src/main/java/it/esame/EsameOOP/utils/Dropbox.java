@@ -40,4 +40,33 @@ public class Dropbox {
 		
 		return res;
 	}
+	
+	public static String getDeletedMetadata(String filepath) {
+		OkHttpClient client = new OkHttpClient.Builder()
+				.build();
+		
+		
+		String jsonApiBody = "{\"path\":\"" + filepath + "\",\n" +
+				"	 \"mode\": \"path\",\n" + 
+				"    \"limit\": 1}";
+		
+		RequestBody body = RequestBody.create(MediaType.parse("application"), jsonApiBody);
+		Request request = new Request.Builder()
+				.url("https://api.dropboxapi.com/2/files/list_revisions")
+				.addHeader("Content-Type", "application/json")
+				.addHeader("Authorization", "Bearer hp2ex-qDDuQAAAAAAAAAAc_mzi1j7CIZ-C3pUTzm34N7tvyBtpSHLaT70SekZOrT")
+				.post(body)
+				.build();
+		
+		String res = null;
+		try {
+			Response response;
+			response = client.newCall(request).execute();
+			res = response.body().string();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 }
