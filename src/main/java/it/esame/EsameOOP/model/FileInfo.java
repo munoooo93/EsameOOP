@@ -1,5 +1,8 @@
 package it.esame.EsameOOP.model;
 
+import java.util.LinkedList;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,11 +74,50 @@ public class FileInfo {
 		 * 
 		 **/
 		
+		
 		basicInfo.put("name", this.getName());
 		basicInfo.put("path", this.getPath());
-		basicInfo.put("deleted", this.isDeleted());
 		basicInfo.put("size", this.getSize());
+		basicInfo.put("deleted", this.isDeleted());
 		
 		return basicInfo;
+	}
+	
+	private static FileInfo fromApiJson(JSONObject o) {
+		
+		FileInfo result = null;
+		
+		try {
+			result = new FileInfo(
+						o.getString("name"),
+						o.getString("path_display"),
+						o.getLong("size"),
+						(o.getString(".tag").equals("deleted")) ? true : false,
+						o.getBoolean("is_downloadable")				
+					);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public static LinkedList<FileInfo> listFromApiJson(JSONArray entries) {
+		LinkedList<FileInfo> collection = new LinkedList<>();
+		
+		for (int i = 0; i < entries.length(); i++) {
+			FileInfo item = null;
+			
+			try {
+				item = fromApiJson(entries.getJSONObject(i));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			if (item != null)
+				collection.add(item);
+		}
+		
+		return collection;
 	}
 }
