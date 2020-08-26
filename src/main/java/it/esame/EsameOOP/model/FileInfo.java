@@ -6,19 +6,28 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import it.esame.EsameOOP.utils.Dropbox;
+
 public class FileInfo {
 	private String	name;
 	private String	path;
 	private long	size;
+	private boolean	deleted;
 	private boolean downloadable;
 	
-	public FileInfo(String name, String path, long size, boolean downloadable) {
+	
+	
+	
+	public FileInfo(String name, String path, long size, boolean deleted, boolean downloadable) {
 		super();
 		this.name = name;
 		this.path = path;
 		this.size = size;
+		this.deleted = deleted;
 		this.downloadable = downloadable;
 	}
+	
+	
 
 	public String getName() {
 		return name;
@@ -44,6 +53,14 @@ public class FileInfo {
 		this.size = size;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	public boolean isDownloadable() {
 		return downloadable;
 	}
@@ -51,8 +68,9 @@ public class FileInfo {
 	public void setDownloadable(boolean downloadable) {
 		this.downloadable = downloadable;
 	}
-	
-	
+
+
+
 	public JSONObject getFileBasicInfo() throws JSONException {
 		JSONObject basicInfo = new JSONObject();
 		
@@ -65,9 +83,11 @@ public class FileInfo {
 		 **/
 		
 		
+		
 		basicInfo.put("name", this.getName());
 		basicInfo.put("path", this.getPath());
 		basicInfo.put("size", this.getSize());
+		basicInfo.put("deleted", this.isDeleted());
 		basicInfo.put("downloadable", this.isDownloadable());
 		
 		return basicInfo;
@@ -78,12 +98,26 @@ public class FileInfo {
 		FileInfo result = null;
 		
 		try {
-			result = new FileInfo(
+			if (o.getString(".tag").equals("deleted")) {
+				JSONObject metadataDeleted = new JSONObject(Dropbox.getDeletedMetadata(o.getString("path_display"))).getJSONArray("entries").getJSONObject(0);
+				
+				result = new FileInfo(
+						metadataDeleted.getString("name"),
+						metadataDeleted.getString("path_display"),
+						metadataDeleted.getLong("size"),
+						true,
+						metadataDeleted.getBoolean("is_downloadable")				
+					);
+			} else {
+				result = new FileInfo(
 						o.getString("name"),
 						o.getString("path_display"),
 						o.getLong("size"),
+						false,
 						o.getBoolean("is_downloadable")				
 					);
+			
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
