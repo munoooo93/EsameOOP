@@ -29,10 +29,9 @@ public class Dropbox {
 				.post(body)
 				.build();
 		
-		Response response;
-		
 		String res = null;
 		try {
+			Response response;
 			response = client.newCall(request).execute();
 			res = response.body().string();
 		} catch (IOException e) {
