@@ -10,7 +10,9 @@ import okhttp3.Response;
 
 /**
  * @author		Emanuele Ballarini
- * 
+ */
+
+/**
  * Classe che espone i metodi di connessione alle API di Dropbox
  * 
  * @implNote	Al fine del progetto è stato creato un account di Dropbox ed ottenuto il token per effettuare le chiamate

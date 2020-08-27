@@ -8,6 +8,13 @@ import org.json.JSONObject;
 
 import it.esame.EsameOOP.utils.Dropbox;
 
+/**
+ * @author Emanuele Ballarini
+ */
+
+/**
+ * Classe rappresentante i metadati di un file remoto su {@link Dropbox}
+ */
 public class FileInfo {
 	private String	name;
 	private String	path;
@@ -26,27 +33,40 @@ public class FileInfo {
 		this.setDownloadable(downloadable);
 	}
 
+	/**
+	 * @return	Il nome del file
+	 */
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	protected void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return	Il percorso del file
+	 */
 	public String getPath() {
 		return path;
 	}
 
-	public void setPath(String path) {
+	protected void setPath(String path) {
 		this.path = path;
 	}
 	
+	/**
+	 * @return	L'estensione del file
+	 */
 	public String getExt() {
 		return ext;
 	}
 
-	public void setExt() {
+	/**
+	 * Setta il metadato inerente all'estensione del file
+	 * @implNote	se il file non termina come '.<estensione>' viene riportato 'unknown'
+	 */
+	protected void setExt() {
 		String filename = this.getName();
 		
 		String[] split = filename.split("\\.");
@@ -56,42 +76,54 @@ public class FileInfo {
 		this.ext = ext;
 	}
 
+	/**
+	 * @return	La dimensione del file in byte
+	 */
 	public long getSize() {
 		return size;
 	}
-
-	public void setSize(long size) {
+	
+	/**
+	 * @param size Dimensione del file
+	 */
+	protected void setSize(long size) {
 		this.size = size;
 	}
 
+	/**
+	 * @return	Il nome del file
+	 */
 	public boolean isDeleted() {
 		return deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	/**
+	 * @param deleted se il file è stato cancellato o no
+	 */
+	protected void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
 
-	public boolean isDownloadable() {
+	/**
+	 * @return	Il nome del file
+	 */
+	protected boolean isDownloadable() {
 		return downloadable;
 	}
 
+	/**
+	 * @param downloadable se il file è scaricabile o no
+	 */
 	public void setDownloadable(boolean downloadable) {
 		this.downloadable = downloadable;
 	}
 
+	/**
+	 * @return	Istanza {@link JSONObject} rappresentante metadati del file
+	 * @throws	JSONException
+	 */
 	public JSONObject getInfo() throws JSONException {
 		JSONObject info = new JSONObject();
-		
-		/*
-		 * presenza
-		 * dimensioni
-		 * 
-		 * cancellati (relative dimensioni)
-		 * 
-		 **/
-		
-		
 		
 		info.put("name", this.getName());
 		info.put("path", this.getPath());
@@ -103,11 +135,17 @@ public class FileInfo {
 		return info;
 	}
 	
+	/**
+	 * Effettua il parsing del json restituito dall'API di Dropbox generando un oggetto {@link FileInfo}
+	 */
 	private static FileInfo fromApiJson(JSONObject o) {
 		
 		FileInfo result = null;
 		
 		try {
+			/*
+			 * Se l'oggetto è eliminato, si effettua un'ulteriore chiamata a Dropbox per ottenere i metadati
+			 */
 			if (o.getString(".tag").equals("deleted")) {
 				JSONObject metadataDeleted = new JSONObject(Dropbox.getDeletedMetadata(o.getString("path_display"))).getJSONArray("entries").getJSONObject(0);
 				
@@ -135,6 +173,12 @@ public class FileInfo {
 		return result;
 	}
 	
+	/**
+	 * Effettua il parsing del json contenente i metadati, creando una lista di {@link FileInfo}
+	 * 
+	 * @param	entries Array JSON contenente i metadati di tutti i file
+	 * @return	Lista di {@link FileInfo}
+	 */
 	public static LinkedList<FileInfo> listFromApiJson(JSONArray entries) {
 		LinkedList<FileInfo> collection = new LinkedList<>();
 		
