@@ -11,17 +11,19 @@ import it.esame.EsameOOP.utils.Dropbox;
 public class FileInfo {
 	private String	name;
 	private String	path;
+	private String	ext;
 	private long	size;
 	private boolean	deleted;
 	private boolean downloadable;
 	
 	public FileInfo(String name, String path, long size, boolean deleted, boolean downloadable) {
 		super();
-		this.name = name;
-		this.path = path;
-		this.size = size;
-		this.deleted = deleted;
-		this.downloadable = downloadable;
+		this.setName(name);
+		this.setPath(path);
+		this.setExt();
+		this.setSize(size);
+		this.setDeleted(deleted);
+		this.setDownloadable(downloadable);
 	}
 
 	public String getName() {
@@ -38,6 +40,20 @@ public class FileInfo {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+	
+	public String getExt() {
+		return ext;
+	}
+
+	public void setExt() {
+		String filename = this.getName();
+		
+		String[] split = filename.split("\\.");
+		
+		String ext = (split.length <= 1) ? "unknown" : split[split.length - 1];
+		
+		this.ext = ext;
 	}
 
 	public long getSize() {
@@ -81,6 +97,7 @@ public class FileInfo {
 		
 		info.put("name", this.getName());
 		info.put("path", this.getPath());
+		info.put("ext", this.getExt());
 		info.put("size", this.getSize());
 		info.put("deleted", this.isDeleted());
 		info.put("downloadable", this.isDownloadable());
