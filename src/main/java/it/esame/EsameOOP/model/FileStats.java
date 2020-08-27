@@ -10,12 +10,14 @@ public class FileStats {
 	private int		count;
 	private long	minSize;
 	private long	maxSize;
+	private long	totalDimensions;
 	
 	public FileStats(String ext) {
 		this.setExt(ext);
 		this.setCount(1);
 		this.minSize = Long.MAX_VALUE;
 		this.maxSize = Long.MIN_VALUE;
+		this.totalDimensions = 0; 
 	}
 
 	public String getExt() {
@@ -50,15 +52,21 @@ public class FileStats {
 		this.maxSize = maxSize;
 	}
 	
+	public long getTotalDimensions() {
+		return totalDimensions;
+	}
+
 	public void incrementCount() {
 		this.count += 1;
 	}
 	
 	public void addDimension(long dim) {
+		this.totalDimensions += dim;
+		
 		if (dim > this.maxSize)
-			this.maxSize = dim;
+			this.setMaxSize(dim);
 		if (dim < this.minSize)
-			this.minSize = dim;
+			this.setMinSize(dim);
 	}
 	
 	public JSONObject toJSONObject() throws JSONException {
@@ -68,6 +76,7 @@ public class FileStats {
 		obj.put("count", this.getCount());
 		obj.put("min-size", this.getMinSize());
 		obj.put("max-size", this.getMaxSize());
+		obj.put("avg-size", this.getTotalDimensions() / this.getCount());
 		
 		return obj;
 	}
