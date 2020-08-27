@@ -42,7 +42,7 @@ public class APIController {
 			return result.toString();
 			
 		} catch (JSONException ex) {
-			return ex.getMessage();
+			return "{\"error\":\"requested path does not exist\"}";
 		}
 	}
 	
@@ -57,6 +57,9 @@ public class APIController {
 					.put(new JSONObject()
 						.put("sourceField", "path")
 						.put("type", "string"))
+					.put(new JSONObject()
+							.put("sourceField", "ext")
+							.put("type", "string"))
 					.put(new JSONObject()
 						.put("sourceField", "size")
 						.put("type", "integer"))
