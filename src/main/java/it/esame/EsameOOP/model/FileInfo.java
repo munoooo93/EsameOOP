@@ -15,9 +15,6 @@ public class FileInfo {
 	private boolean	deleted;
 	private boolean downloadable;
 	
-	
-	
-	
 	public FileInfo(String name, String path, long size, boolean deleted, boolean downloadable) {
 		super();
 		this.name = name;
@@ -26,8 +23,6 @@ public class FileInfo {
 		this.deleted = deleted;
 		this.downloadable = downloadable;
 	}
-	
-	
 
 	public String getName() {
 		return name;
@@ -71,8 +66,8 @@ public class FileInfo {
 
 
 
-	public JSONObject getFileBasicInfo() throws JSONException {
-		JSONObject basicInfo = new JSONObject();
+	public JSONObject getInfo() throws JSONException {
+		JSONObject info = new JSONObject();
 		
 		/*
 		 * presenza
@@ -84,13 +79,13 @@ public class FileInfo {
 		
 		
 		
-		basicInfo.put("name", this.getName());
-		basicInfo.put("path", this.getPath());
-		basicInfo.put("size", this.getSize());
-		basicInfo.put("deleted", this.isDeleted());
-		basicInfo.put("downloadable", this.isDownloadable());
+		info.put("name", this.getName());
+		info.put("path", this.getPath());
+		info.put("size", this.getSize());
+		info.put("deleted", this.isDeleted());
+		info.put("downloadable", this.isDownloadable());
 		
-		return basicInfo;
+		return info;
 	}
 	
 	private static FileInfo fromApiJson(JSONObject o) {
