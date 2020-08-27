@@ -17,6 +17,13 @@ import it.esame.EsameOOP.utils.Dropbox;
 
 @RestController
 public class APIController {
+	/**
+	 * Route che, data una cartella, ne elenca i file contenuti con relativi metadati, cercando anche nelle sottocartelle
+	 * @param body	corpo della richiesta: <i>path</i>:
+	 * 				percorso della cartella da analizzare. Per la root inserire una stringa vuota
+	 * @return	JSON contenente i dati relativi ai file presenti
+	 * 			e cancellati in una data cartella (e relative sottocartelle)
+	 */
 	@PostMapping("/data")
 	public String getData(@RequestBody String body) {
 		String requestPath = "";
@@ -46,6 +53,10 @@ public class APIController {
 		}
 	}
 	
+	/**
+	 * Route che permette di ricevere informazioni relative al formato del JSON restituito dalla route '/data'
+	 * @return JSON contenente le informazioni relative agli attributi restituiti da '/data'
+	 */
 	@GetMapping("/metadata")
 	public String getMetadata() {
 		JSONArray metadata = new JSONArray();
