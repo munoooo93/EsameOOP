@@ -8,14 +8,27 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+/**
+ * @author		Emanuele Ballarini
+ * 
+ * Classe che espone i metodi di connessione alle API di Dropbox
+ * 
+ * @implNote	Al fine del progetto è stato creato un account di Dropbox ed ottenuto il token per effettuare le chiamate
+ */
 public class Dropbox {
+	/**
+	 * Metodo statico che effettua una chiamata alle API di Dropbox
+	 * al fine di ottenere la lista del contenuto di una cartella
+	 * 
+	 * @param	path	Cartella da analizzare, se il parametro è una stringa vuota, si cercherà nella root
+	 * @return	Risposta delle API di Dropbox <i><b>list_folder</b></i>
+	 */
 	public static String getData(String path) {
 		OkHttpClient client = new OkHttpClient.Builder()
 				.build();
 		
 		
-		String jsonApiBody = "{\"path\":\"" + path + "\", \"recursive\": true,\n" + 
-				"    \"include_media_info\": true,\n" + 
+		String jsonApiBody = "{\"path\":\"" + path + "\", \"recursive\": true,\n" +
 				"    \"include_deleted\": true,\n" + 
 				"    \"include_has_explicit_shared_members\": true,\n" + 
 				"    \"include_mounted_folders\": true,\n" + 
@@ -41,6 +54,15 @@ public class Dropbox {
 		return res;
 	}
 	
+	/**
+	 * Metodo statico che effettua una chiamata alle API di Dropbox
+	 * al fine di ottenere i metadati di un file
+	 * 
+	 * @apiNote	Utilizzato solo per ottenere i metadati dei file cancellati
+	 * 
+	 * @param	filepath	Percorso del file di cui si vogliono sapere i metadati
+	 * @return	Risposta delle API di Dropbox <i><b>list_revisions</b></i>
+	 */
 	public static String getDeletedMetadata(String filepath) {
 		OkHttpClient client = new OkHttpClient.Builder()
 				.build();
