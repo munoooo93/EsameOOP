@@ -5,6 +5,13 @@ import java.util.LinkedList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * @author Emanuele Ballarini
+ */
+
+/**
+ * Classe per definire le statistiche per una data estensione
+ */
 public class FileStats {
 	private String	ext;
 	private int		count;
@@ -35,8 +42,6 @@ public class FileStats {
 	/**
 	 * Restituisce il numero di file con estensione {@link #ext}
 	 * @return Numero di file con estensione {@link #ext}
-	 * 
-	 * @see {@link #getExt()}
 	 */
 	public int getCount() {
 		return count;
@@ -76,7 +81,6 @@ public class FileStats {
 
 	/**
 	 * Incrementa di 1 il numero di file con estensione {@link #ext}
-	 * @see @link {@link #getExt()} {@link #getCount()}
 	 */
 	public void incrementCount() {
 		this.count += 1;
@@ -122,6 +126,10 @@ public class FileStats {
 		LinkedList<FileStats> collection = new LinkedList<>();
 		
 		for (FileInfo f: list) {
+			/* 
+			 * Se non bisogna includere gli elementi e l'elemento corrente è eliminato,
+			 * viene saltato l'elemento.
+			 */
 			if ((includeDeleted == false) && (f.isDeleted())) {
 				continue;
 			} else {
@@ -134,6 +142,7 @@ public class FileStats {
 						subject = s;
 					}
 				}
+				
 				
 				if (contained) {
 					subject.incrementCount();

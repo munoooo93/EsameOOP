@@ -15,6 +15,13 @@ import it.esame.EsameOOP.model.FileInfo;
 import it.esame.EsameOOP.model.FileStats;
 import it.esame.EsameOOP.utils.Dropbox;
 
+/**
+ * @author Emanuele Ballarini
+ */
+
+/**
+ * Classe che dichiara le route disponibili
+ */
 @RestController
 public class APIController {
 	/**
@@ -87,6 +94,11 @@ public class APIController {
 		return metadata.toString();
 	}
 	
+	/**
+	 * Route che permette di ricevere statistiche relative alle varie estensioni di file
+	 * @param includeDeleted parametro che permette di scegliere se escludere o no i file eliminati dalle statistiche
+	 * @return JSON contenente le statistiche
+	 */
 	@GetMapping("/stats")
 	public String getStats(@RequestParam(name="includeDeleted", defaultValue="false") boolean includeDeleted) {
 		String apiResponse = Dropbox.getData("");
