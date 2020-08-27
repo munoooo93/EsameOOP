@@ -8,9 +8,11 @@ import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.esame.EsameOOP.model.FileInfo;
+import it.esame.EsameOOP.model.FileStats;
 import it.esame.EsameOOP.utils.Dropbox;
 
 @RestController
@@ -34,7 +36,7 @@ public class APIController {
 		
 			JSONArray result = new JSONArray();
 			for (int i = 0; i < list.size(); i++) {
-				result.put(list.get(i).getFileBasicInfo());
+				result.put(list.get(i).getInfo());
 			}
 			
 			return result.toString();
@@ -70,5 +72,27 @@ public class APIController {
 		
 		return metadata.toString();
 	}
-	//@GetMapping("/stats/")
+	
+	/* Da fare */
+	@GetMapping("/stats")
+	public String getStats(@RequestParam(name="includeDeleted", defaultValue="false") boolean includeDeleted) {
+		String apiResponse = Dropbox.getData("");
+		
+		try {
+			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
+			
+			LinkedList<FileInfo> list = FileInfo.listFromApiJson(entries);
+			LinkedList<FileStats> stats = FileInfo.getStatsFromFiles(list, includeDeleted);
+			
+			JSONArray result = new JSONArray();
+			for (FileStats f: stats) {
+				result.put(f.toJSONObject());
+			}
+			
+			return result.toString();
+			
+		} catch (JSONException ex) {
+			return ex.getMessage();
+		}
+	}
 }
