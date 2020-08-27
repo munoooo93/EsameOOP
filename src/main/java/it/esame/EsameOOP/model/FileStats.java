@@ -15,11 +15,15 @@ public class FileStats {
 	public FileStats(String ext) {
 		this.setExt(ext);
 		this.setCount(1);
-		this.minSize = Long.MAX_VALUE;
-		this.maxSize = Long.MIN_VALUE;
+		this.setMinSize(Long.MAX_VALUE);
+		this.setMaxSize(Long.MIN_VALUE);
 		this.totalDimensions = 0; 
 	}
 
+	/**
+	 * Restituisce l'estensione sui cui vengono effettuate le statistiche
+	 * @return estensione file
+	 */
 	public String getExt() {
 		return ext;
 	}
@@ -27,7 +31,13 @@ public class FileStats {
 	protected void setExt(String ext) {
 		this.ext = ext;
 	}
-
+	
+	/**
+	 * Restituisce il numero di file con estensione {@link #ext}
+	 * @return Numero di file con estensione {@link #ext}
+	 * 
+	 * @see {@link #getExt()}
+	 */
 	public int getCount() {
 		return count;
 	}
@@ -36,6 +46,10 @@ public class FileStats {
 		this.count = count;
 	}
 
+	/**
+	 * Restituisce la dimensione del file più piccolo
+	 * @return la dimensione del file più piccolo
+	 */
 	public long getMinSize() {
 		return minSize;
 	}
@@ -44,6 +58,10 @@ public class FileStats {
 		this.minSize = minSize;
 	}
 
+	/**
+	 * Restituisce la dimensione del file più grande
+	 * @return la dimensione del file più grande
+	 */
 	public long getMaxSize() {
 		return maxSize;
 	}
@@ -52,14 +70,22 @@ public class FileStats {
 		this.maxSize = maxSize;
 	}
 	
-	public long getTotalDimensions() {
+	protected long getTotalDimensions() {
 		return totalDimensions;
 	}
 
+	/**
+	 * Incrementa di 1 il numero di file con estensione {@link #ext}
+	 * @see @link {@link #getExt()} {@link #getCount()}
+	 */
 	public void incrementCount() {
 		this.count += 1;
 	}
 	
+	/**
+	 * Aggiunge la dimensione del file per poi calcolarne le statistiche
+	 * @param dim Dimensione del file
+	 */
 	public void addDimension(long dim) {
 		this.totalDimensions += dim;
 		
@@ -69,6 +95,11 @@ public class FileStats {
 			this.setMinSize(dim);
 	}
 	
+	/**
+	 * Ottiene un oggetto JSON contenente le informazioni sulle statistiche
+	 * @return Istanza JSONObject contenente le statistiche per l'estensione {@link #ext}
+	 * @throws JSONException
+	 */
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject obj = new JSONObject();
 		
@@ -81,6 +112,12 @@ public class FileStats {
 		return obj;
 	}
 	
+	/**
+	 * Ottiene una lista di statistiche dalla lista dei file
+	 * @param list Lista di FileInfo
+	 * @param includeDeleted true per includere i file cancellati nelle statistiche, false altrimenti
+	 * @return Lista delle statistiche basate sull'estensione
+	 */
 	public static LinkedList<FileStats> getStatsFromFiles(LinkedList<FileInfo> list, boolean includeDeleted) {
 		LinkedList<FileStats> collection = new LinkedList<>();
 		

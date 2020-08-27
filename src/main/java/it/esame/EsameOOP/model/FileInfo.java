@@ -34,6 +34,7 @@ public class FileInfo {
 	}
 
 	/**
+	 * Restituisce il nome del file
 	 * @return	Il nome del file
 	 */
 	public String getName() {
@@ -45,6 +46,7 @@ public class FileInfo {
 	}
 
 	/**
+	 * Restituisce il percorso del file
 	 * @return	Il percorso del file
 	 */
 	public String getPath() {
@@ -56,6 +58,7 @@ public class FileInfo {
 	}
 	
 	/**
+	 * Restituisce l'estensione del file
 	 * @return	L'estensione del file
 	 */
 	public String getExt() {
@@ -77,15 +80,13 @@ public class FileInfo {
 	}
 
 	/**
+	 * Restituisce la dimensione del file
 	 * @return	La dimensione del file in byte
 	 */
 	public long getSize() {
 		return size;
 	}
 	
-	/**
-	 * @param size Dimensione del file
-	 */
 	protected void setSize(long size) {
 		this.size = size;
 	}
@@ -97,9 +98,6 @@ public class FileInfo {
 		return deleted;
 	}
 
-	/**
-	 * @param deleted se il file è stato cancellato o no
-	 */
 	protected void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
@@ -111,10 +109,7 @@ public class FileInfo {
 		return downloadable;
 	}
 
-	/**
-	 * @param downloadable se il file è scaricabile o no
-	 */
-	public void setDownloadable(boolean downloadable) {
+	protected void setDownloadable(boolean downloadable) {
 		this.downloadable = downloadable;
 	}
 
