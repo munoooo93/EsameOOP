@@ -73,7 +73,6 @@ public class APIController {
 		return metadata.toString();
 	}
 	
-	/* Da fare */
 	@GetMapping("/stats")
 	public String getStats(@RequestParam(name="includeDeleted", defaultValue="false") boolean includeDeleted) {
 		String apiResponse = Dropbox.getData("");
