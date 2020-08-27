@@ -1,5 +1,7 @@
 package it.esame.EsameOOP.model;
 
+import java.util.LinkedList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,5 +70,36 @@ public class FileStats {
 		obj.put("max-size", this.getMaxSize());
 		
 		return obj;
+	}
+	
+	public static LinkedList<FileStats> getStatsFromFiles(LinkedList<FileInfo> list, boolean includeDeleted) {
+		LinkedList<FileStats> collection = new LinkedList<>();
+		
+		for (FileInfo f: list) {
+			if ((includeDeleted == false) && (f.isDeleted())) {
+				continue;
+			} else {
+				boolean contained = false;
+				FileStats subject = null;
+				
+				for (FileStats s: collection) {
+					if (s.getExt().equals(f.getExt())) {
+						contained = true;
+						subject = s;
+					}
+				}
+				
+				if (contained) {
+					subject.incrementCount();
+					subject.addDimension(f.getSize());
+				} else {
+					subject = new FileStats(f.getExt());
+					subject.addDimension(f.getSize());
+					collection.add(subject);
+				}
+			}
+		}
+		
+		return collection;
 	}
 }

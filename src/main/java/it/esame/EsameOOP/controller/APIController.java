@@ -84,7 +84,7 @@ public class APIController {
 			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
 			
 			LinkedList<FileInfo> list = FileInfo.listFromApiJson(entries);
-			LinkedList<FileStats> stats = FileInfo.getStatsFromFiles(list, includeDeleted);
+			LinkedList<FileStats> stats = FileStats.getStatsFromFiles(list, includeDeleted);
 			
 			JSONArray result = new JSONArray();
 			for (FileStats f: stats) {

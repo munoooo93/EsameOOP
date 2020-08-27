@@ -153,35 +153,4 @@ public class FileInfo {
 		
 		return collection;
 	}
-	
-	public static LinkedList<FileStats> getStatsFromFiles(LinkedList<FileInfo> list, boolean includeDeleted) {
-		LinkedList<FileStats> collection = new LinkedList<>();
-		
-		for (FileInfo f: list) {
-			if ((includeDeleted == false) && (f.isDeleted())) {
-				continue;
-			} else {
-				boolean contained = false;
-				FileStats subject = null;
-				
-				for (FileStats s: collection) {
-					if (s.getExt().equals(f.ext)) {
-						contained = true;
-						subject = s;
-					}
-				}
-				
-				if (contained) {
-					subject.incrementCount();
-					subject.addDimension(f.getSize());
-				} else {
-					subject = new FileStats(f.getExt());
-					subject.addDimension(f.getSize());
-					collection.add(subject);
-				}
-			}
-		}
-		
-		return collection;
-	}
 }
