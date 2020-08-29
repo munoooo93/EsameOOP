@@ -117,7 +117,7 @@ public class APIController {
 			return result.toString();
 			
 		} catch (JSONException ex) {
-			return ex.getMessage();
+			return "[]";
 		}
 	}
 	
