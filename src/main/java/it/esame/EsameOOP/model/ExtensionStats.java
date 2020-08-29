@@ -170,7 +170,7 @@ public class ExtensionStats {
 		
 		for (FileInfo f: list) {
 			String path = (folder.isEmpty()) ? "/" : folder;
-			if (!f.getPath().equals(path + f.getName()))
+			if (!f.getPath().equals(path + "/" + f.getName()))
 				continue;
 			if ((includeDeleted == false) && (f.isDeleted())) {
 				continue;
