@@ -56,7 +56,7 @@ public class APIController {
 			return result.toString();
 			
 		} catch (JSONException ex) {
-			return "{\"error\":\"requested path does not exist\"}";
+			return "[]";
 		}
 	}
 	

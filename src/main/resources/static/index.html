@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Esame OOP</title>
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<div id="data-view">
+			<div>
+				<div id="data-describer"></div>
+				<div id="data-container"></div>
+			</div>
+
+			<div id="data-controller">
+				<input id="data-path" type="text" placeholder="Percorso" value="">
+				<button id="data-retriever">Ottieni i dati</button>
+			</div>
+		</div>
+
+		<div id="metadata-view">
+			<div>
+				<div id="metadata-describer"></div>
+				<div id="metadata-container"></div>
+			</div>
+			<div id="metadata-controller">
+				<button id="metadata-retriever">Ottieni metadati</button>
+			</div>
+		</div>
+
+		<div id="stats-view">
+			<div>
+				<div id="stats-describer"></div>
+				<div id="stats-container"></div>
+			</div>
+			<div id="stats-controller">
+				<button id="stats-retriever">Ottieni statistiche</button>
+				<label>
+					<input id="stats-del" type="checkbox" checked>
+				</label>
+			</div>
+		</div>
+
+		<!-- Libraries -->
+		<script src="/modules/data-view.js"></script>
+		<script src="/modules/metadata-view.js"></script>
+		<script src="/modules/stats-view.js"></script>
+		<!-- App Launcher -->
+		<script src="/main.js"></script>
+	</body>
+</html>
