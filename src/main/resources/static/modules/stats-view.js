@@ -1,16 +1,21 @@
 class StatsView {
 	container;
+	path;
 	includeDeleted;
-	retriever;
+	retrieverAll;
+	retrieverFolder;
 
 	constructor() {
-		this.container		= document.getElementById("stats-container");
-		this.includeDeleted	= document.getElementById("stats-del");
-		this.retriever		= document.getElementById("stats-retriever");
+		this.container			= document.getElementById("stats-container");
+		this.path				= document.getElementById("stats-path");
+		this.includeDeleted		= document.getElementById("stats-del");
+		this.retrieverAll		= document.getElementById("stats-retriever-all");
+		this.retrieverFolder	= document.getElementById("stats-retriever-folder");
 	}
 
 	init() {
-		this.retriever.addEventListener("click", () => { this.getStats(); });
+		this.retrieverAll.addEventListener("click", () => { this.getAllStats(); });
+		this.retrieverFolder.addEventListener("click", () => { this.getFolderStats(); });
 	}
 
 	render(list) {
@@ -34,14 +39,27 @@ class StatsView {
 		return ("<div class=\"" + cssClass + "\">" + text + "</div>");
 	}
 
-	getStats() {
+	getAllStats() {
 		let xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = () => {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				this.render(JSON.parse(xhttp.responseText));
 			}
 		};
-		xhttp.open("GET", "/stats?includeDeleted=" + this.includeDeleted.checked, true);
+		xhttp.open("GET", "/stats/overall?includeDeleted=" + this.includeDeleted.checked, true);
 		xhttp.send();
+	}
+
+	getFolderStats() {
+		let requestBody =	"{ \"path\": \"" + this.path.value + "\", " +
+							"\"include-deleted\": " + this.includeDeleted.checked + " }";
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = () => {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				this.render(JSON.parse(xhttp.responseText));
+			}
+		};
+		xhttp.open("POST", "/stats", true);
+		xhttp.send(requestBody);
 	}
 }

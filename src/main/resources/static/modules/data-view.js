@@ -42,7 +42,7 @@ class DataView {
 	}
 
 	getData() {
-		let requestBody = "{ \"path\": \"" + document.getElementById("data-path").value + "\" }";
+		let requestBody = "{ \"path\": \"" + this.path.value + "\" }";
 		let xhttp = new XMLHttpRequest();
 		
 		xhttp.onreadystatechange = () => {

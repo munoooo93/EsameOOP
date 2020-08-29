@@ -3,8 +3,8 @@
 <html>
 	<head>
 		<title>Esame OOP</title>
-		<link rel="stylesheet" href="/style.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<link rel="stylesheet" href="/style.css">
 	</head>
 	<body>
 		<div id="data-view">
@@ -35,7 +35,12 @@
 				<div id="stats-container"></div>
 			</div>
 			<div id="stats-controller">
-				<button id="stats-retriever">Ottieni statistiche</button>
+				<button id="stats-retriever-folder">Ottieni statistiche cartella</button>
+				<label>
+					<input id="stats-path" type="text" placeholder="Percorso" value="">
+				</label>
+
+				<button id="stats-retriever-all">Ottieni tutte le statistiche</button>
 				<label>
 					<input id="stats-del" type="checkbox" checked>
 				</label>
