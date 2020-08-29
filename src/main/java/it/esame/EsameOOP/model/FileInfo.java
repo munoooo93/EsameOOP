@@ -105,7 +105,7 @@ public class FileInfo {
 	/**
 	 * @return	Il nome del file
 	 */
-	protected boolean isDownloadable() {
+	public boolean isDownloadable() {
 		return downloadable;
 	}
 
