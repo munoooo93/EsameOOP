@@ -121,6 +121,11 @@ public class APIController {
 		}
 	}
 	
+	/**
+	 * Route che permette di ricevere statistiche relative alle varie estensioni di file per una singola cartella
+	 * @param body Corpo della richiesta
+	 * @return JSON contenente le statistiche
+	 */
 	@PostMapping("/stats")
 	public String getFolderStats(@RequestBody String body) {
 		String requestPath = "";
@@ -128,7 +133,7 @@ public class APIController {
 		try {
 			JSONObject bodyJson = new JSONObject(body);
 			requestPath = bodyJson.getString("path");
-			
+			includeDeleted = bodyJson.getBoolean("include-deleted");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
