@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.esame.EsameOOP.model.FileInfo;
-import it.esame.EsameOOP.model.FileStats;
+import it.esame.EsameOOP.model.ExtensionStats;
 import it.esame.EsameOOP.utils.Dropbox;
 
 /**
@@ -99,7 +99,7 @@ public class APIController {
 	 * @param includeDeleted parametro che permette di scegliere se escludere o no i file eliminati dalle statistiche
 	 * @return JSON contenente le statistiche
 	 */
-	@GetMapping("/stats")
+	@GetMapping("/stats/overall")
 	public String getStats(@RequestParam(name="includeDeleted", defaultValue="false") boolean includeDeleted) {
 		String apiResponse = Dropbox.getData("");
 		
@@ -107,10 +107,10 @@ public class APIController {
 			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
 			
 			LinkedList<FileInfo> list = FileInfo.listFromApiJson(entries);
-			LinkedList<FileStats> stats = FileStats.getStatsFromFiles(list, includeDeleted);
+			LinkedList<ExtensionStats> stats = ExtensionStats.getStatsFromFiles(list, includeDeleted);
 			
 			JSONArray result = new JSONArray();
-			for (FileStats f: stats) {
+			for (ExtensionStats f: stats) {
 				result.put(f.toJSONObject());
 			}
 			
@@ -118,6 +118,38 @@ public class APIController {
 			
 		} catch (JSONException ex) {
 			return ex.getMessage();
+		}
+	}
+	
+	@PostMapping("/stats")
+	public String getFolderStats(@RequestBody String body) {
+		String requestPath = "";
+		boolean includeDeleted = false;
+		try {
+			JSONObject bodyJson = new JSONObject(body);
+			requestPath = bodyJson.getString("path");
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		
+		String apiResponse = Dropbox.getData(requestPath);
+		try {
+			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
+			
+			LinkedList<FileInfo> list = FileInfo.listFromApiJson(entries);			
+			LinkedList<ExtensionStats> stats = ExtensionStats.getStatsFromFolder(list, includeDeleted, requestPath);
+			
+			JSONArray result = new JSONArray();
+			for (ExtensionStats f: stats) {
+				result.put(f.toJSONObject());
+			}
+			
+			return result.toString();
+			
+		} catch (JSONException ex) {
+			return "[]";
 		}
 	}
 }

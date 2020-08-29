@@ -14,7 +14,7 @@ class DataView {
 	}
 
 	render(list) {
-		const style = "txt";
+		const style = "cols-2";
 		let toRender = "";
 
 		console.log("Process...");
@@ -22,7 +22,7 @@ class DataView {
 
 		for (let i = 0 ; i < list.length; i++) {
 			console.log(list[i]);
-			toRender += "<div class=\"\">"; // TODO add style
+			toRender += "<div class=\"row\">"; // TODO add style
 			toRender += this.createTextContainer(list[i]["name"], style);
 			toRender += this.createTextContainer(list[i]["path"], style);
 			toRender += this.createTextContainer(list[i]["ext"], style);

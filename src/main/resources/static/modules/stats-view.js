@@ -14,11 +14,11 @@ class StatsView {
 	}
 
 	render(list) {
-		const style = "txt";
+		const style = "cols-2";
 		let toRender = "";
 
 		for (let i = 0 ; i < list.length; i++) {
-			toRender += "<div class=\"\">"; // TODO add style
+			toRender += "<div class=\"row\">"; // TODO add style
 			toRender += this.createTextContainer(list[i]['ext'], style);
 			toRender += this.createTextContainer(list[i]['count'], style);
 			toRender += this.createTextContainer(list[i]['min-size'], style);

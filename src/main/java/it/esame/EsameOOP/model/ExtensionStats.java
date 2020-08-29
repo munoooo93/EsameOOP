@@ -12,14 +12,14 @@ import org.json.JSONObject;
 /**
  * Classe per definire le statistiche per una data estensione
  */
-public class FileStats {
+public class ExtensionStats {
 	private String	ext;
 	private int		count;
 	private long	minSize;
 	private long	maxSize;
 	private long	totalDimensions;
 	
-	public FileStats(String ext) {
+	public ExtensionStats(String ext) {
 		this.setExt(ext);
 		this.setCount(1);
 		this.setMinSize(Long.MAX_VALUE);
@@ -122,8 +122,8 @@ public class FileStats {
 	 * @param includeDeleted true per includere i file cancellati nelle statistiche, false altrimenti
 	 * @return Lista delle statistiche basate sull'estensione
 	 */
-	public static LinkedList<FileStats> getStatsFromFiles(LinkedList<FileInfo> list, boolean includeDeleted) {
-		LinkedList<FileStats> collection = new LinkedList<>();
+	public static LinkedList<ExtensionStats> getStatsFromFiles(LinkedList<FileInfo> list, boolean includeDeleted) {
+		LinkedList<ExtensionStats> collection = new LinkedList<>();
 		
 		for (FileInfo f: list) {
 			/* 
@@ -134,9 +134,9 @@ public class FileStats {
 				continue;
 			} else {
 				boolean contained = false;
-				FileStats subject = null;
+				ExtensionStats subject = null;
 				
-				for (FileStats s: collection) {
+				for (ExtensionStats s: collection) {
 					if (s.getExt().equals(f.getExt())) {
 						contained = true;
 						subject = s;
@@ -148,7 +148,48 @@ public class FileStats {
 					subject.incrementCount();
 					subject.addDimension(f.getSize());
 				} else {
-					subject = new FileStats(f.getExt());
+					subject = new ExtensionStats(f.getExt());
+					subject.addDimension(f.getSize());
+					collection.add(subject);
+				}
+			}
+		}
+		
+		return collection;
+	}
+	
+	/**
+	 * Ottiene le statistiche legate ad una cartella
+	 * @param list Lista di FileInfo
+	 * @param includeDeleted Flag per includere i file cancellati
+	 * @param folder Cartella di cui si vogliono conoscere le statistiche
+	 * @return Lista delle statistiche
+	 */
+	public static LinkedList<ExtensionStats> getStatsFromFolder(LinkedList<FileInfo> list, boolean includeDeleted, String folder) {
+		LinkedList<ExtensionStats> collection = new LinkedList<>();
+		
+		for (FileInfo f: list) {
+			String path = (folder.isEmpty()) ? "/" : folder;
+			if (!f.getPath().equals(path + f.getName()))
+				continue;
+			if ((includeDeleted == false) && (f.isDeleted())) {
+				continue;
+			} else {
+				boolean contained = false;
+				ExtensionStats subject = null;
+				
+				for (ExtensionStats s: collection) {
+					if (s.getExt().equals(f.getExt())) {
+						contained = true;
+						subject = s;
+					}
+				}
+				
+				if (contained) {
+					subject.incrementCount();
+					subject.addDimension(f.getSize());
+				} else {
+					subject = new ExtensionStats(f.getExt());
 					subject.addDimension(f.getSize());
 					collection.add(subject);
 				}
