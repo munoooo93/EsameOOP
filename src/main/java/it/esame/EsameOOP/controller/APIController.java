@@ -42,7 +42,7 @@ public class APIController {
 		}
 		
 		String apiResponse = Dropbox.getData(requestPath);
-		
+		String response = "";
 		try {
 			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
 			
@@ -53,11 +53,13 @@ public class APIController {
 				result.put(list.get(i).getInfo());
 			}
 			
-			return result.toString();
+			response = result.toString();
 			
 		} catch (JSONException ex) {
-			return "[]";
+			response = "[]";
 		}
+		
+		return response;
 	}
 	
 	/**
@@ -102,6 +104,7 @@ public class APIController {
 	@GetMapping("/stats/overall")
 	public String getStats(@RequestParam(name="includeDeleted", defaultValue="false") boolean includeDeleted) {
 		String apiResponse = Dropbox.getData("");
+		String response = "";
 		
 		try {
 			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
@@ -114,11 +117,13 @@ public class APIController {
 				result.put(f.toJSONObject());
 			}
 			
-			return result.toString();
+			response = result.toString();
 			
 		} catch (JSONException ex) {
-			return "[]";
+			response = "[]";
 		}
+		
+		return response;
 	}
 	
 	/**
@@ -140,6 +145,7 @@ public class APIController {
 		
 		
 		String apiResponse = Dropbox.getData(requestPath);
+		String response = "";
 		try {
 			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
 			
@@ -151,10 +157,12 @@ public class APIController {
 				result.put(f.toJSONObject());
 			}
 			
-			return result.toString();
+			response = result.toString();
 			
 		} catch (JSONException ex) {
-			return "[]";
+			response = "[]";
 		}
+		
+		return response;
 	}
 }
