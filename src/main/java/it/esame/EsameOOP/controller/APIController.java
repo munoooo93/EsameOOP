@@ -57,6 +57,8 @@ public class APIController {
 			
 		} catch (JSONException ex) {
 			response = "[]";
+		} catch (NullPointerException n) {
+			response = "{ \"error\": \"unable to retrieve informations from Dropbox\" }";
 		}
 		
 		return response;
@@ -121,6 +123,8 @@ public class APIController {
 			
 		} catch (JSONException ex) {
 			response = "[]";
+		} catch (NullPointerException n) {
+			response = "{ \"error\": \"unable to retrieve informations from Dropbox\" }";
 		}
 		
 		return response;
@@ -161,6 +165,8 @@ public class APIController {
 			
 		} catch (JSONException ex) {
 			response = "[]";
+		} catch (NullPointerException n) {
+			response = "{ \"error\": \"unable to retrieve informations from Dropbox\" }";
 		}
 		
 		return response;
