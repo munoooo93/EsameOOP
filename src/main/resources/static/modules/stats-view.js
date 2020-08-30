@@ -24,19 +24,19 @@ class StatsView {
 
 		for (let i = 0 ; i < list.length; i++) {
 			toRender += "<div class=\"row\">"; // TODO add style
-			toRender += this.createTextContainer(list[i]['ext'], style);
-			toRender += this.createTextContainer(list[i]['count'], style);
-			toRender += this.createTextContainer(list[i]['min-size'], style);
-			toRender += this.createTextContainer(list[i]['max-size'], style);
-			toRender += this.createTextContainer(list[i]['avg-size'], style);
+			toRender += this.createTextContainer('Estensione', list[i]['ext'], style);
+			toRender += this.createTextContainer('Numero', list[i]['count'], style);
+			toRender += this.createTextContainer('Dimensione minima', list[i]['min-size'], style);
+			toRender += this.createTextContainer('Dimensione massima', list[i]['max-size'], style);
+			toRender += this.createTextContainer('Dimensione media', list[i]['avg-size'], style);
 			toRender += "</div>";
 		}
 
 		this.container.innerHTML = toRender;
 	}
 
-	createTextContainer(text, cssClass) {
-		return ("<div class=\"" + cssClass + "\">" + text + "</div>");
+	createTextContainer(fieldName, text, cssClass) {
+		return ("<div class=\"" + cssClass + "\"> <span>" + fieldName + ":</span><br>" + text + "</div>");
 	}
 
 	getAllStats() {

@@ -12,21 +12,21 @@ class MetadataView {
 	}
 
 	render(list) {
-		const style = "";
+		const style = "cols-6";
 		let toRender = "";
 
 		for (let i = 0 ; i < list.length; i++) {
-			toRender += "<div class=\"\">"; // TODO add style
-			toRender += this.createTextContainer(list[i]['sourceField'], style);
-			toRender += this.createTextContainer(list[i]['type'], style)
+			toRender += "<div class=\"row\">"; // TODO add style
+			toRender += this.createTextContainer('Nome attributo', list[i]['sourceField'], style);
+			toRender += this.createTextContainer('Tipo', list[i]['type'], style)
 			toRender += "</div>";
 		}
 
 		this.container.innerHTML = toRender;
 	}
 
-	createTextContainer(text, cssClass) {
-		return ("<div class=\"" + cssClass + "\">" + text + "</div>");
+	createTextContainer(fieldName, text, cssClass) {
+		return ("<div class=\"" + cssClass + "\"> <span>" + fieldName + ":</span><br>" + text + "</div>");
 	}
 
 	getMetadata() {
