@@ -6,39 +6,98 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<link rel="stylesheet" href="/style.css">
 	</head>
-	<body class="container">
-		<div id="data-view" class="row">
-			<form id="data-controller" class="controller">
-				<input id="data-path" type="text" placeholder="Percorso" value="">
-				<button id="data-retriever">Ottieni i dati</button>
-			</form>
+	<body>
+		<div class="form-group">
+			<div id="data-view">			
+			<div id="data-controller">
 
-			<div id="data-container" class="row centred"></div>
-		</div>
+			
 
-		<div id="metadata-view" class="row">
-			<div id="metadata-controller">
-				<button id="metadata-retriever">Ottieni metadati</button>
+				<div class="container" style="padding-top:10px;">
+					<div class="row">
+						<div class="container">
+							<div class="container">
+								<input id="data-path" type="text" placeholder="Percorso" value="" class="col-sm-6 form-control-sm">
+							
+						
+								<button id="data-retriever" class="col-sm-4" style="float:right">Ottieni i dati</button>
+							</div>
+						</div>	
+						
+					</div>
+				</div>
+			</div>
 			</div>
 
-			<div id="metadata-container" class="row centred"></div>
-		</div>
+			<div>
+				<div id="data-describer"></div>
+				<div id="data-container"></div>
+			</div>
+		
+			<div class="container" style="padding-top:10px;">
+				<div class="row">
+					<div class="col form-group text-center">
+						<div id="metadata-view">
+							<div class="container">
+								<div id="metadata-controller">
+									<button id="metadata-retriever" class="col-sm-12">Ottieni metadati</button>
+								</div>
+							</div>
 
-		<div id="stats-view" class="row">
-			<div id="stats-controller" class="row">
-				<button id="stats-retriever-folder">Ottieni statistiche cartella</button>
-				<label>
-					<input id="stats-path" type="text" placeholder="Percorso" value="">
-				</label>
-
-				<button id="stats-retriever-all">Ottieni tutte le statistiche</button>
-				<label>
-					<input id="stats-del" type="checkbox" checked>
-				</label>
+							<div>
+								<div id="metadata-describer"></div>
+								<div id="metadata-container"></div>
+							</div>
+						</div>
+					</div>
+			</div>
 			</div>
 
-			<div id="stats-container" class="row"></div>
+
+
+			<div id="stats-view">
+			<div id="stats-controller">
+
+					<div class="container">
+						<div class="row">
+							<div class="container">
+								<div class="container">
+									<input id="stats-path" type="text" placeholder="Percorso" value="" class="col-sm-6 form-control-sm">
+									<button id="stats-retriever-folder" class="col-sm-4" style="float:right">Ottieni statistiche cartella</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			</div>
+			
+			
+			<div class="container" style="padding-top:10px;">
+				<div class="row">
+					<div class="col form-group text-center">
+						<div id="metadata-view">
+							<div class="container">
+									<button id="stats-retriever-all" class="col-sm-12">Ottieni tutte le statistiche</button>
+								</div>
+							</div>
+
+							<div>
+								<div id="stats-describer"></div>
+								<div id="stats-container" class="container"></div>
+							</div>
+						</div>
+					</div>
+			</div>
+			</div>
+
+			<div class="container text-center">
+				<label>
+					<input id="stats-del" type="checkbox" checked> Includi file cancellati
+				</label>
+			</div>
 		</div>
+			
+		
 
 		<!-- Libraries -->
 		<script src="/modules/data-view.js"></script>
