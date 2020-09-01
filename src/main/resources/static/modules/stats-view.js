@@ -22,14 +22,23 @@ class StatsView {
 		const style = "cols-2";
 		let toRender = "";
 
-		for (let i = 0 ; i < list.length; i++) {
-			toRender += "<div class=\"row\">"; // TODO add style
-			toRender += this.createTextContainer('Estensione', list[i]['ext'], style);
-			toRender += this.createTextContainer('Numero', list[i]['count'], style);
-			toRender += this.createTextContainer('Dimensione minima', list[i]['min-size'], style);
-			toRender += this.createTextContainer('Dimensione massima', list[i]['max-size'], style);
-			toRender += this.createTextContainer('Dimensione media', list[i]['avg-size'], style);
-			toRender += "</div>";
+		if (!(list['error'] === undefined)) {
+			toRender += "Impossibile connettersi alle API di Dropbox...<br>";
+			toRender += "<i>Riprovare in seguito</i>";
+		} else if (list.length == 0) {
+			toRender += "Cartella non presente... Nulla da visualizzare";
+		} else {
+			/* Add nothing to display */
+			/* Add error handling */
+			for (let i = 0 ; i < list.length; i++) {
+				toRender += "<div class=\"row\">"; // TODO add style
+				toRender += this.createTextContainer('Estensione', list[i]['ext'], style);
+				toRender += this.createTextContainer('Numero', list[i]['count'], style);
+				toRender += this.createTextContainer('Dimensione minima', list[i]['min-size'], style);
+				toRender += this.createTextContainer('Dimensione massima', list[i]['max-size'], style);
+				toRender += this.createTextContainer('Dimensione media', list[i]['avg-size'], style);
+				toRender += "</div>";
+			}
 		}
 
 		this.container.innerHTML = toRender;

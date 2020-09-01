@@ -37,6 +37,9 @@ public class APIController {
 		try {
 			JSONObject bodyJson = new JSONObject(body);
 			requestPath = bodyJson.getString("path");
+			if ((requestPath.length() != 0) && (requestPath.charAt(requestPath.length() - 1) != '/')) {
+				requestPath += "/";
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -142,6 +145,9 @@ public class APIController {
 		try {
 			JSONObject bodyJson = new JSONObject(body);
 			requestPath = bodyJson.getString("path");
+			if ((requestPath.length() != 0) && (requestPath.charAt(requestPath.length() - 1) != '/')) {
+				requestPath += "/";
+			}
 			includeDeleted = bodyJson.getBoolean("include-deleted");
 		} catch (JSONException e) {
 			e.printStackTrace();

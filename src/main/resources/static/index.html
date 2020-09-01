@@ -6,32 +6,26 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<link rel="stylesheet" href="/style.css">
 	</head>
-	<body>
-		<div id="data-view">
-			<div id="data-controller">
+	<body class="container">
+		<div id="data-view" class="row">
+			<form id="data-controller" class="controller">
 				<input id="data-path" type="text" placeholder="Percorso" value="">
 				<button id="data-retriever">Ottieni i dati</button>
-			</div>
+			</form>
 
-			<div>
-				<div id="data-describer"></div>
-				<div id="data-container" class="container"></div>
-			</div>
+			<div id="data-container" class="row centred"></div>
 		</div>
 
-		<div id="metadata-view">
+		<div id="metadata-view" class="row">
 			<div id="metadata-controller">
 				<button id="metadata-retriever">Ottieni metadati</button>
 			</div>
 
-			<div class="container">
-				<div id="metadata-describer"></div>
-				<div id="metadata-container"></div>
-			</div>
+			<div id="metadata-container" class="row centred"></div>
 		</div>
 
-		<div id="stats-view">
-			<div id="stats-controller">
+		<div id="stats-view" class="row">
+			<div id="stats-controller" class="row">
 				<button id="stats-retriever-folder">Ottieni statistiche cartella</button>
 				<label>
 					<input id="stats-path" type="text" placeholder="Percorso" value="">
@@ -43,10 +37,7 @@
 				</label>
 			</div>
 
-			<div>
-				<div id="stats-describer"></div>
-				<div id="stats-container" class="container"></div>
-			</div>
+			<div id="stats-container" class="row"></div>
 		</div>
 
 		<!-- Libraries -->

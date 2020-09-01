@@ -14,31 +14,33 @@ class DataView {
 	}
 
 	render(list) {
-		const style = "cols-2";
 		let toRender = "";
 
-		console.log("Process...");
-		console.log(list);
+		/* Generazione HTML da renderizzare */
+		if (!(list['error'] === undefined)) {
+			toRender += "Impossibile connettersi alle API di Dropbox...<br>";
+			toRender += "<i>Riprovare in seguito</i>";
+		} else if (list.length == 0) {
+			toRender += "Cartella non presente... Nulla da visualizzare";
+		} else {
+			for (let i = 0 ; i < list.length; i++) {
+				toRender += "<div class=\"row boxed\">"; // TODO add style
+				
+				toRender += /*"<div class=\"boxed" + /*style +*/ /*"\">"*/"<span class=\"attr-identifier\">Nome file: </span>" + list[i]["name"] + "<br><br><list>";
+				
+				toRender += "<ul><span class=\"attr-identifier\">Percorso: </span>" + list[i]["path"] + "</ul>";
+				toRender += "<ul><span class=\"attr-identifier\">Estensione: </span>" + list[i]["ext"] + "</ul>";
+				toRender += "<ul><span class=\"attr-identifier\">Dimensione: </span>" + list[i]["size"] + "</ul>";
+				toRender += "<ul><span class=\"attr-identifier\">Cancellato: </span>" + ((list[i]["deleted"]) ? "&#10004" : "&#10006") + "</ul>";
+				toRender += "<ul><span class=\"attr-identifier\">Scaricabile: </span>" + ((list[i]["downloadable"]) ? "&#10004" : "&#10006") + "</ul>";
 
-		for (let i = 0 ; i < list.length; i++) {
-			console.log(list[i]);
-			toRender += "<div class=\"row\">"; // TODO add style
-			toRender += this.createTextContainer('Nome', list[i]["name"], style);
-			toRender += this.createTextContainer('Percorso', list[i]["path"], style);
-			toRender += this.createTextContainer('Estensione', list[i]["ext"], style);
-			toRender += this.createTextContainer('Dimensione', list[i]["size"], style);
-			toRender += this.createTextContainer('Eliminato', list[i]["deleted"], style);
-			toRender += this.createTextContainer('Scaricabile', list[i]["downloadable"], style);
-			toRender += "</div>";
+				toRender += "</list></div>";
+				
+				/*toRender += "</div>";*/
+			}
 		}
 		
-		console.log("Rendering...");
-		
-		document.getElementById("data-container").innerHTML = toRender;
-	}
-
-	createTextContainer(fieldName, text, cssClass) {
-		return ("<div class=\"" + cssClass + "\"> <span>" + fieldName + ":</span><br>" + text + "</div>");
+		this.container.innerHTML = toRender;
 	}
 
 	getData() {
