@@ -44,23 +44,30 @@ public class APIController {
 			e.printStackTrace();
 		}
 		
+		// Richiede i dati alle API di Dropbox
 		String apiResponse = Dropbox.getData(requestPath);
 		String response = "";
 		try {
+			// Genera l'oggetto contenente un'array JSON (metadati file remoto)
 			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
 			
+			// Ne effettua il parsing
 			LinkedList<FileInfo> list = FileInfo.listFromApiJson(entries);
 		
+			// Genera un'array JSON con i risultati
 			JSONArray result = new JSONArray();
 			for (int i = 0; i < list.size(); i++) {
 				result.put(list.get(i).getInfo());
 			}
 			
+			// Converte l'oggetto in stringa, che verrà restituito dalle API
 			response = result.toString();
 			
 		} catch (JSONException ex) {
+			// Se ci sono problemi con il JSON, verrà ritornata una string vuota
 			response = "[]";
 		} catch (NullPointerException n) {
+			// Se la string di risposta di Dropbox è nulla indica che non è stato possibile richiedere i dati
 			response = "{ \"error\": \"unable to retrieve informations from Dropbox\" }";
 		}
 		
@@ -76,6 +83,7 @@ public class APIController {
 		JSONArray metadata = new JSONArray();
 		
 		try {
+			// Genera un'array JSON descrittivo dei metadati
 			metadata.put(new JSONObject()
 						.put("sourceField", "name")
 						.put("type", "string"))
@@ -108,6 +116,7 @@ public class APIController {
 	 */
 	@GetMapping("/stats/overall")
 	public String getStats(@RequestParam(name="includeDeleted", defaultValue="false") boolean includeDeleted) {
+		// Effettua la chiamata alle API per ottenere tutte le informazioni di tutti i file;
 		String apiResponse = Dropbox.getData("");
 		String response = "";
 		
@@ -115,6 +124,7 @@ public class APIController {
 			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
 			
 			LinkedList<FileInfo> list = FileInfo.listFromApiJson(entries);
+			// Dai dati letti dalle API di Dropbox, ne estrapola le statistiche
 			LinkedList<ExtensionStats> stats = ExtensionStats.getStatsFromFiles(list, includeDeleted);
 			
 			JSONArray result = new JSONArray();
@@ -140,6 +150,7 @@ public class APIController {
 	 */
 	@PostMapping("/stats")
 	public String getFolderStats(@RequestBody String body) {
+		// Effettua il parsing dei parametri
 		String requestPath = "";
 		boolean includeDeleted = false;
 		try {
@@ -153,13 +164,13 @@ public class APIController {
 			e.printStackTrace();
 		}
 		
-		
 		String apiResponse = Dropbox.getData(requestPath);
 		String response = "";
 		try {
 			JSONArray entries = new JSONObject(apiResponse).getJSONArray("entries");
 			
 			LinkedList<FileInfo> list = FileInfo.listFromApiJson(entries);			
+			// Dai dati letti dalle API di Dropbox, ne estrapola le statistiche
 			LinkedList<ExtensionStats> stats = ExtensionStats.getStatsFromFolder(list, includeDeleted, requestPath);
 			
 			JSONArray result = new JSONArray();

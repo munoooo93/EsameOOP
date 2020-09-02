@@ -168,10 +168,13 @@ public class ExtensionStats {
 	public static LinkedList<ExtensionStats> getStatsFromFolder(LinkedList<FileInfo> list, boolean includeDeleted, String folder) {
 		LinkedList<ExtensionStats> collection = new LinkedList<>();
 		
+		// Esegue le statistiche data una lista di file
 		for (FileInfo f: list) {
 			String path = (folder.isEmpty()) ? "/" : folder;
+			// Controlla se il file è nella cartella selezionata
 			if (!f.getPath().equals(path + f.getName()))
 				continue;
+			// Controlla se il file è cancellato
 			if ((includeDeleted == false) && (f.isDeleted())) {
 				continue;
 			} else {

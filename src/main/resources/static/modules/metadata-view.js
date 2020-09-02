@@ -12,21 +12,22 @@ class MetadataView {
 	}
 
 	render(list) {
-		const style = "cols-6";
 		let toRender = "";
 
+		toRender += "<h1>Metadati:</h1><div class=\"container\">";
+
 		for (let i = 0 ; i < list.length; i++) {
-			toRender += "<div class=\"row\">"; // TODO add style
-			toRender += this.createTextContainer('Nome attributo', list[i]['sourceField'], style);
-			toRender += this.createTextContainer('Tipo', list[i]['type'], style)
-			toRender += "</div>";
+			toRender += "<button class=\"btn btn-light btn-block\" type=\"button\" data-toggle=\"collapse\" data-target=\"#metadata-content-" + i + "\" aria-expanded=\"false\" aria-controls=\"metadata-content-" + i +"\">";
+			toRender += list[i]['sourceField'];
+			toRender += "</button>";
+			
+			toRender += "<div class=\"collapse\" id=\"metadata-content-" + i + "\">";
+			toRender += "<div class=\"card card-body\">" + list[i]['type'] + "</div>";
+			toRender += "</div><br>";
 		}
+		toRender += "</div>";
 
 		this.container.innerHTML = toRender;
-	}
-
-	createTextContainer(fieldName, text, cssClass) {
-		return ("<div class=\"" + cssClass + "\"> <span>" + fieldName + ":</span><br>" + text + "</div>");
 	}
 
 	getMetadata() {

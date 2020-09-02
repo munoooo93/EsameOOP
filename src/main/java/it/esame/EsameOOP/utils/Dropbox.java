@@ -26,16 +26,18 @@ public class Dropbox {
 	 * @return	Risposta delle API di Dropbox <i><b>list_folder</b></i>
 	 */
 	public static String getData(String path) {
+		// Crea un oggetto OkHttpClient per effettuare la chiamata alle API di Dropbox
 		OkHttpClient client = new OkHttpClient.Builder()
 				.build();
 		
-		
+		// Genera il body della richiesta
 		String jsonApiBody = "{\"path\":\"" + path + "\", \"recursive\": true,\n" +
 				"    \"include_deleted\": true,\n" + 
 				"    \"include_has_explicit_shared_members\": true,\n" + 
 				"    \"include_mounted_folders\": true,\n" + 
 				"    \"include_non_downloadable_files\": true}";
 		
+		// Crea la richiesta vera e propria
 		RequestBody body = RequestBody.create(MediaType.parse("application"), jsonApiBody);
 		Request request = new Request.Builder()
 				.url("https://api.dropboxapi.com/2/files/list_folder")
@@ -46,6 +48,7 @@ public class Dropbox {
 		
 		String res = null;
 		try {
+			// Effettua la richiesta al server
 			Response response;
 			response = client.newCall(request).execute();
 			res = response.body().string();

@@ -5,33 +5,35 @@
 		<title>Esame OOP</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<link rel="stylesheet" href="/style.css">
+		
+		<!-- JS, Popper.js, and jQuery -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<div class="form-group">
 			<div id="data-view">			
-			<div id="data-controller">
+				<div id="data-controller">
 
-			
-
-				<div class="container" style="padding-top:10px;">
-					<div class="row">
-						<div class="container">
+					<div class="container" style="padding-top:10px;">
+						<div class="row">
 							<div class="container">
-								<input id="data-path" type="text" placeholder="Percorso" value="" class="col-sm-6 form-control-sm">
+								<div class="container">
+									<input id="data-path" type="text" placeholder="Percorso" value="" class="col-sm-6 form-control-md">
 							
 						
-								<button id="data-retriever" class="col-sm-4" style="float:right">Ottieni i dati</button>
-							</div>
-						</div>	
-						
+									<button id="data-retriever" type="button" class="col-sm-4 btn btn-primary" style="float:right">Ottieni i dati</button>
+								</div>
+							</div>	
+						</div>
+					
+						<!-- DATA CONTAINER (for js generation) -->
+						<div class="row" id="data-container" style="padding-top:10px;">
+						</div>
+					
 					</div>
 				</div>
-			</div>
-			</div>
-
-			<div>
-				<div id="data-describer"></div>
-				<div id="data-container"></div>
 			</div>
 		
 			<div class="container" style="padding-top:10px;">
@@ -40,55 +42,45 @@
 						<div id="metadata-view">
 							<div class="container">
 								<div id="metadata-controller">
-									<button id="metadata-retriever" class="col-sm-12">Ottieni metadati</button>
+									<button id="metadata-retriever" class="col-sm-12 btn btn-info">Ottieni metadati</button>
 								</div>
 							</div>
 
+							<!-- METADATA CONTAINER (for js generation) -->
 							<div>
-								<div id="metadata-describer"></div>
 								<div id="metadata-container"></div>
 							</div>
 						</div>
 					</div>
-			</div>
-			</div>
-
-
-
-			<div id="stats-view">
-			<div id="stats-controller">
-
-					<div class="container">
-						<div class="row">
-							<div class="container">
-								<div class="container">
-									<input id="stats-path" type="text" placeholder="Percorso" value="" class="col-sm-6 form-control-sm">
-									<button id="stats-retriever-folder" class="col-sm-4" style="float:right">Ottieni statistiche cartella</button>
-								</div>
-							</div>
-						</div>
-					</div>
-			</div>
+				</div>
 			</div>
 			
-			
-			<div class="container" style="padding-top:10px;">
+			<div class="container">
 				<div class="row">
-					<div class="col form-group text-center">
-						<div id="metadata-view">
-							<div class="container">
-									<button id="stats-retriever-all" class="col-sm-12">Ottieni tutte le statistiche</button>
-								</div>
-							</div>
-
-							<div>
-								<div id="stats-describer"></div>
-								<div id="stats-container" class="container"></div>
-							</div>
+					<div class="container">
+						<div class="container">
+							<input id="stats-path" type="text" placeholder="Percorso" value="" class="col-sm-6 form-control-md">
+							<button id="stats-retriever-folder" class="col-sm-4 btn btn-primary" style="float:right">Ottieni statistiche cartella</button>
 						</div>
 					</div>
+				</div>
 			</div>
+		</div>
+	</div>
+			
+			
+	<div class="container" style="padding-top:0px;">
+		<div class="row">
+			<div class="col form-group text-center">
+				<div id="stats-view">
+					<div class="container">
+							<button id="stats-retriever-all" class="col-sm-12 btn btn-success">Ottieni tutte le statistiche</button>
+					</div>
+				</div>
 			</div>
+		</div>
+	</div>
+</div>
 
 			<div class="container text-center">
 				<label>
@@ -96,6 +88,11 @@
 				</label>
 			</div>
 		</div>
+		
+		<!-- STATS CONTAINER (for js generation) -->
+				<div>
+					<div id="stats-container" class="container"></div>
+				</div>
 			
 		
 

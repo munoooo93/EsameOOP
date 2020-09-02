@@ -14,31 +14,32 @@ class DataView {
 	}
 
 	render(list) {
-		const style = "cols-2";
 		let toRender = "";
 
-		console.log("Process...");
-		console.log(list);
-
-		for (let i = 0 ; i < list.length; i++) {
-			console.log(list[i]);
-			toRender += "<div class=\"row\">"; // TODO add style
-			toRender += this.createTextContainer('Nome', list[i]["name"], style);
-			toRender += this.createTextContainer('Percorso', list[i]["path"], style);
-			toRender += this.createTextContainer('Estensione', list[i]["ext"], style);
-			toRender += this.createTextContainer('Dimensione', list[i]["size"], style);
-			toRender += this.createTextContainer('Eliminato', list[i]["deleted"], style);
-			toRender += this.createTextContainer('Scaricabile', list[i]["downloadable"], style);
-			toRender += "</div>";
+		if (!(list['error'] === undefined)) {
+			toRender = "<div class=\"container\" style=\"padding-top:10px;\"><div class=\"container\"><div class=\"alert alert-danger\" style=\"float:center\"> Impossibile connettersi alle API di Dropbox... </div></div></div>";
+		} else if (list.length == 0) {
+			toRender = "<div class=\"container\" style=\"padding-top:10px;\"><div class=\"container\"><div class=\"alert alert-warning\" style=\"float:center\"> Nulla da visualizzare... </div></div></div>";
+		} else {
+			toRender += "<div class=\"container\"><div class=\"container\">";
+			for (let i = 0 ; i < list.length; i++) {
+				toRender += "<button class=\"btn btn-light btn-block\" type=\"button\" data-toggle=\"collapse\" data-target=\"#data-content-" + i + "\" aria-expanded=\"false\" aria-controls=\"data-content-" + i +"\">";
+				toRender += list[i]["name"];
+				toRender += "</button>";
+				
+				toRender += "<div class=\"collapse\" id=\"data-content-" + i + "\">";
+				toRender += "<div class=\"card card-body\">";
+				toRender += "<ul><b>Percorso:</b> " + list[i]["path"] + "</ul>";
+				toRender += "<ul><b>Estensione: </b>" + list[i]["ext"] + "</ul>";
+				toRender += "<ul><b>Dimensione: </b>" + list[i]["size"] + "</ul>";
+				toRender += "<ul><b>Cancellato: </b>" + ((list[i]["deleted"]) ? "&#10004" : "&#10006") + "</ul>";
+				toRender += "<ul><b>Scaricabile: </b>" + ((list[i]["downloadable"]) ? "&#10004" : "&#10006") + "</ul>";
+				toRender += "</div></div><br>";
+			}
+			toRender += "</div></div>";
 		}
 		
-		console.log("Rendering...");
-		
-		document.getElementById("data-container").innerHTML = toRender;
-	}
-
-	createTextContainer(fieldName, text, cssClass) {
-		return ("<div class=\"" + cssClass + "\"> <span>" + fieldName + ":</span><br>" + text + "</div>");
+		this.container.innerHTML = toRender;
 	}
 
 	getData() {

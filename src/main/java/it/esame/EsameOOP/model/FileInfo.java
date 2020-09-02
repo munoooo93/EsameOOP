@@ -138,9 +138,8 @@ public class FileInfo {
 		FileInfo result = null;
 		
 		try {
-			/*
-			 * Se l'oggetto è eliminato, si effettua un'ulteriore chiamata a Dropbox per ottenere i metadati
-			 */
+			// Se l'oggetto è eliminato, si effettua un'ulteriore chiamata a Dropbox per ottenere i metadati
+			 
 			if (o.getString(".tag").equals("deleted")) {
 				JSONObject metadataDeleted = new JSONObject(Dropbox.getDeletedMetadata(o.getString("path_display"))).getJSONArray("entries").getJSONObject(0);
 				
@@ -175,6 +174,7 @@ public class FileInfo {
 	 * @return	Lista di {@link FileInfo}
 	 */
 	public static LinkedList<FileInfo> listFromApiJson(JSONArray entries) {
+		// Converte l'array JSON in una lista di oggetti FileInfo
 		LinkedList<FileInfo> collection = new LinkedList<>();
 		
 		for (int i = 0; i < entries.length(); i++) {
