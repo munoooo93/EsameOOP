@@ -9,24 +9,27 @@ Scopo di questo progetto è la creazione di una REST API che consenta di:
 L'acronimo REST sta per "**RE**presentational **S**tate **T**ransfer",  definisce delle linee guida da seguire durante lo sviluppo delle API per la gestione delle risorse remote ed indica come mappare le operazioni CRUD (**C**reate, **R**etrieve, **U**pdate, **D**elete) da eseguire sul dato, tramite i 4 metodi messi a disposizione dal protocollo HTTP: **GET**, **POST**, **PUT**, **DELETE**.
 
 ## Percorsi API
+
 L'applicazione mette a disposizione 5 rotte distinte. In caso di errore viene restituita una **lista vuota**. Viene sempre restituito un **JSON**, fatta eccezione per il frontend dove viene restituito un **HTML**.
 
->POST /data
+>**POST** */data*
 
-Richiede un body con un solo parametro: "**path**", contenente l'indirizzo della cartella da analizzare. Se assente, considera come default la cartella */root* . Per ogni file elenca: 
-* Il nome del percorso
-* Estensione
-* Dimensione in byte
-* Se è stato cancellato
-* Se è scaricabile
+Richiede un body con un solo parametro: "**path**: /**Nomecartella**/", contenente l'indirizzo della cartella da analizzare. Se assente, considera come default la cartella */root* . Per ogni file elenca: 
 
->GET /metadata
+* Il nome del percorso.
+* Estensione.
+* Dimensione in byte.
+* Se è stato cancellato.
+* Se è scaricabile.
+
+>**GET** */metadata*
 
 Descrive la tipologia dei dati che vengono restituiti da */data*.
 
->GET /stats/overall
+>**GET** */stats/overall*
 
 Permette di eseguire un'analisi statistica sulla cartella, elenca:
+
 * Estensione file.
 * Il numero dei file con quell'estensione.
 * Dimensione mininima.
@@ -35,15 +38,16 @@ Permette di eseguire un'analisi statistica sulla cartella, elenca:
 
 Il parametro opzionale */overall* permette di includere i file cancellati nell'analisi statistica. Vengono prese in esame **tutte** le cartelle presenti.
 
->POST /stats
+>**POST** */stats*
 
-Richiede un body con 2 parametri: **"path"**, **"include-deleted"**. Il primo indica la cartella in cui cercare, il secondo indica se includere i file eliminati nelle statistiche. É una richiesta simile alla precedente ma specifica ad una cartella. Se non vengono inclusi i parametri, i valori di default diventano: *"path":"/root"*, *"include-deleted":false*.
+Richiede un body con 2 parametri: "**path**", "**include-deleted**". Il primo indica la cartella in cui cercare, il secondo indica se includere  i file eliminati nelle statistiche. É una richiesta simile alla precedente ma specifica ad una cartella. Se non vengono inclusi i parametri, i valori di default diventano: *"path":"/root"*, *"include-deleted":false*.
 
 >/
 
 Percorso per il **frontend**.
 
 ### Le chiamate
+
 Ricapitolando:
 | **Metodo** | **Richiesta** | **Risposta** |
 | :--- | :---: | ---: |
@@ -53,18 +57,24 @@ Ricapitolando:
 | POST  | /stats         | JSON |
 | GET   | /              | HTML |
 
-Abbiamo una cartella così composta:
+Per il testing è stato creato un account di prova (con relativo **token** per l'accesso) dove abbiamo una cartella così composta:
 
-[IMMAGINE Foldlist2.PNG]
+![Foldlist2.png]()
 
 #### */data*
+
 Un esempio di body:
+
 ```json
+
 {
-    "path": "/Cose importanti"
+    "path": "/Cose importanti/"
 }
+
 ```
+
 La cui risposta sarà:
+
 ```json
 [
  {
@@ -96,7 +106,7 @@ La cui risposta sarà:
      "downloadable":true,
      "deleted":false,
      "size":89574,
-     "name":"albero.png"}
+     "name":"albero.png"
  },
  {
      "ext":"png","path":"/Cose importanti/Immagini importanti/bradipo.png",
@@ -153,9 +163,13 @@ La cui risposta sarà:
      "name":"What's song is this?"
  }
 ]
+
 ```
+
 #### */metadata*
+
 La risposta, in questo caso sarà:
+
 ```json
 [
  {
@@ -183,9 +197,13 @@ La risposta, in questo caso sarà:
      "type":"boolean"
  }
 ]
+
 ```
+
 #### */stats/overall*
+
 Avremo una risposta così composta:
+
 ```json
 [
  {
@@ -231,16 +249,23 @@ Avremo una risposta così composta:
      "min-size":25
  }
 ]
+
 ```
+
 #### */stats*
+
 Un esempio di body:
+
 ```json
 {
     "path":"/Cose importanti/",
     "include-deleted":false
 }
+
 ```
+
 Come risposta otterremo:
+
 ```json
 [
  {
@@ -268,20 +293,73 @@ Come risposta otterremo:
 ```
 
 ### Il frontend
--screen del frontend + descrizione-
+
+![Home.png]()
+
+Tramite un frontend è possibile interfacciarsi con le API ed effettuare le varie richieste disponibili. È presente una casella di testo per inserire il percorso da ricercare, ove possibile.
+
+![Immagini importanti.png]()
+
+Nell'immagine, viene eseguita una ricerca nella cartella "Immagini importanti", contenuta in "Cose importanti"(tramite **"Ottieni i dati"**, richiamando POST /data). Seguono altri screenshot che illustrano il comportamento delle rispettive chiamate.
+
+![Metadati.png]()
+
+**"Ottieni metadati"** = GET /metadata
+
+![Stats cartella.png]()
+
+**"Ottieni statistiche cartella"** = POST /stats
+
+![Tutte le stats.png]()
+
+**"Ottieni tutte le statistiche"** = GET /stats/overall
+
+Tramite una checkbox è possibile includere i file cancellati nelle statistiche.
+
 ## UML
+
 L'UML (**U**nified **M**odeling **L**anguage) é un linguaggio di modellazione che si ispira al paradigma orientato ad oggetti per la rappresentazione e la visualizzazione del codice e delle sue specifiche. Attraverso dei **diagrammi** aiuta a definire in maniera chiara ed univoca i processi che regolano la concettualizzazione e la costruzione di un progetto.
+
 ### Class Diagram
-I **diagrammi delle classi** rappresentano, a vari livelli di astrazione, il **contesto** in cui un sistema software deve operare, è utile anche nella progettazione delle parti che lo compongono e delle loro relazioni.
+
+Il **diagramma delle classi** rappresentano, a vari livelli di astrazione, il **contesto** in cui un sistema software deve operare, è utile anche nella progettazione delle parti che lo compongono e delle loro relazioni.
+
 ### Use Case Diagram
+
 Il **diagramma dei casi d'uso**, tramite l'utilizzo di **attori**, descrive le funzioni o i servizi messi a disposizione dal sistema.
+
+![IMM UML]()
+
 ### Sequence Diagram
+
 Il **diagramma di sequenza** individua relazioni, in particolare i **messaggi** che intercorrono tra le entità rappresentate.
+
+#### */data*
+
+![IMM SEQ /DATA]()
+
+#### */metadata*
+
+![IMM SEQ /METADATA]()
+
+#### */stats/overall*
+
+![IMM SEQ /STATS7OVERALL]()
+
+#### */stats*
+
+![IMM SEQ /STATS]()
+
 ## Software Utilizzati
+
 * [SpringBoot](https://spring.io/projects/spring-boot) - Framework per applicazioni Java.
 * [Eclipse](https://www.eclipse.org/) - IDE per linguaggio Java.
 * [Visual Studio Code](https://code.visualstudio.com/) - Frontend.
+
 ## Reference API
+
 * **Dropbox:** [list folder](https://www.dropbox.com/developers/documentation/http/documentation#files-list_folder), [list revisions](https://www.dropbox.com/developers/documentation/http/documentation#files-list_revisions)
+
 ## Autore
+
 * **Emanueale Ballarini** - [GitHub](https://github.com/munoooo93)
