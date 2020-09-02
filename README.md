@@ -59,7 +59,7 @@ Ricapitolando:
 
 Per il testing è stato creato un account di prova (con relativo **token** per l'accesso) dove abbiamo una cartella così composta:
 
-![Foldlist2.png]()
+![Foldlist2.png](https://github.com/munoooo93/EsameOOP/blob/master/img/Foldlist2.png)
 
 #### */data*
 
@@ -294,23 +294,23 @@ Come risposta otterremo:
 
 ### Il frontend
 
-![Home.png]()
+![Home.png](https://github.com/munoooo93/EsameOOP/blob/master/img/home.jpg)
 
 Tramite un frontend è possibile interfacciarsi con le API ed effettuare le varie richieste disponibili. È presente una casella di testo per inserire il percorso da ricercare, ove possibile.
 
-![Immagini importanti.png]()
+![Immagini importanti.png](https://github.com/munoooo93/EsameOOP/blob/master/img/data.jpg)
 
 Nell'immagine, viene eseguita una ricerca nella cartella "Immagini importanti", contenuta in "Cose importanti"(tramite **"Ottieni i dati"**, richiamando POST /data). Seguono altri screenshot che illustrano il comportamento delle rispettive chiamate.
 
-![Metadati.png]()
+![Metadati.png](https://github.com/munoooo93/EsameOOP/blob/master/img/metadata.jpg)
 
 **"Ottieni metadati"** = GET /metadata
 
-![Stats cartella.png]()
+![Stats cartella.png](https://github.com/munoooo93/EsameOOP/blob/master/img/stats.jpg)
 
 **"Ottieni statistiche cartella"** = POST /stats
 
-![Tutte le stats.png]()
+![Tutte le stats.png](https://github.com/munoooo93/EsameOOP/blob/master/img/stats-overall.jpg)
 
 **"Ottieni tutte le statistiche"** = GET /stats/overall
 
@@ -324,11 +324,13 @@ L'UML (**U**nified **M**odeling **L**anguage) é un linguaggio di modellazione c
 
 Il **diagramma delle classi** rappresentano, a vari livelli di astrazione, il **contesto** in cui un sistema software deve operare, è utile anche nella progettazione delle parti che lo compongono e delle loro relazioni.
 
+![Diagramma Classi](https://github.com/munoooo93/EsameOOP/blob/master/UML/classes.png)
+
 ### Use Case Diagram
 
 Il **diagramma dei casi d'uso**, tramite l'utilizzo di **attori**, descrive le funzioni o i servizi messi a disposizione dal sistema.
 
-![IMM UML]()
+![IMM UML](https://github.com/munoooo93/EsameOOP/blob/master/UML/use-cases.png)
 
 ### Sequence Diagram
 
@@ -336,19 +338,19 @@ Il **diagramma di sequenza** individua relazioni, in particolare i **messaggi** 
 
 #### */data*
 
-![IMM SEQ /DATA]()
+![IMM SEQ /DATA](https://github.com/munoooo93/EsameOOP/blob/master/UML/data-sequence.png)
 
 #### */metadata*
 
-![IMM SEQ /METADATA]()
+![IMM SEQ /METADATA](https://github.com/munoooo93/EsameOOP/blob/master/UML/metadata-sequence.png)
 
 #### */stats/overall*
 
-![IMM SEQ /STATS7OVERALL]()
+![IMM SEQ /STATS7OVERALL](https://github.com/munoooo93/EsameOOP/blob/master/UML/stats-overall-sequence.png)
 
 #### */stats*
 
-![IMM SEQ /STATS]()
+![IMM SEQ /STATS](https://github.com/munoooo93/EsameOOP/blob/master/UML/stats-sequence.png)
 
 ## Software Utilizzati
 
