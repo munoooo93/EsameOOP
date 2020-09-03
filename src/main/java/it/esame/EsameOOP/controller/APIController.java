@@ -83,7 +83,7 @@ public class APIController {
 		JSONArray metadata = new JSONArray();
 		
 		try {
-			// Genera un'array JSON descrittivo dei metadati
+			// Genera un array JSON descrittivo dei metadati
 			metadata.put(new JSONObject()
 						.put("sourceField", "name")
 						.put("type", "string"))

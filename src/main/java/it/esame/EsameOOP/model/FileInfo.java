@@ -24,7 +24,6 @@ public class FileInfo {
 	private boolean downloadable;
 	
 	public FileInfo(String name, String path, long size, boolean deleted, boolean downloadable) {
-		super();
 		this.setName(name);
 		this.setPath(path);
 		this.setExt();

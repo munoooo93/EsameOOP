@@ -364,4 +364,4 @@ Il **diagramma di sequenza** individua relazioni, in particolare i **messaggi** 
 
 ## Autore
 
-* **Emanueale Ballarini** - [GitHub](https://github.com/munoooo93)
+* **Emanuele Ballarini** - [GitHub](https://github.com/munoooo93)

@@ -83,7 +83,7 @@ public class ExtensionStats {
 	 * Incrementa di 1 il numero di file con estensione {@link #ext}
 	 */
 	public void incrementCount() {
-		this.count += 1;
+		this.count++;
 	}
 	
 	/**
@@ -130,7 +130,7 @@ public class ExtensionStats {
 			 * Se non bisogna includere gli elementi e l'elemento corrente è eliminato,
 			 * viene saltato l'elemento.
 			 */
-			if ((includeDeleted == false) && (f.isDeleted())) {
+			if ((!includeDeleted) && (f.isDeleted())) {
 				continue;
 			} else {
 				boolean contained = false;
@@ -175,7 +175,7 @@ public class ExtensionStats {
 			if (!f.getPath().equals(path + f.getName()))
 				continue;
 			// Controlla se il file è cancellato
-			if ((includeDeleted == false) && (f.isDeleted())) {
+			if ((!includeDeleted) && (f.isDeleted())) {
 				continue;
 			} else {
 				boolean contained = false;
