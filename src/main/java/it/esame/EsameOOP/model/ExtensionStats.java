@@ -116,6 +116,28 @@ public class ExtensionStats {
 		return obj;
 	}
 	
+	// Metodo per modificare (o aggiungere) una statistica
+	private static void addStat(FileInfo f, LinkedList<ExtensionStats> collection) {
+		boolean contained = false;
+		ExtensionStats subject = null;
+		
+		for (ExtensionStats s: collection) {
+			if (s.getExt().equals(f.getExt())) {
+				contained = true;
+				subject = s;
+			}
+		}
+		
+		if (contained) {
+			subject.incrementCount();
+			subject.addDimension(f.getSize());
+		} else {
+			subject = new ExtensionStats(f.getExt());
+			subject.addDimension(f.getSize());
+			collection.add(subject);
+		}
+	}
+	
 	/**
 	 * Ottiene una lista di statistiche dalla lista dei file
 	 * @param list Lista di FileInfo
@@ -133,25 +155,7 @@ public class ExtensionStats {
 			if ((!includeDeleted) && (f.isDeleted())) {
 				continue;
 			} else {
-				boolean contained = false;
-				ExtensionStats subject = null;
-				
-				for (ExtensionStats s: collection) {
-					if (s.getExt().equals(f.getExt())) {
-						contained = true;
-						subject = s;
-					}
-				}
-				
-				
-				if (contained) {
-					subject.incrementCount();
-					subject.addDimension(f.getSize());
-				} else {
-					subject = new ExtensionStats(f.getExt());
-					subject.addDimension(f.getSize());
-					collection.add(subject);
-				}
+				addStat(f, collection);
 			}
 		}
 		
@@ -178,24 +182,7 @@ public class ExtensionStats {
 			if ((!includeDeleted) && (f.isDeleted())) {
 				continue;
 			} else {
-				boolean contained = false;
-				ExtensionStats subject = null;
-				
-				for (ExtensionStats s: collection) {
-					if (s.getExt().equals(f.getExt())) {
-						contained = true;
-						subject = s;
-					}
-				}
-				
-				if (contained) {
-					subject.incrementCount();
-					subject.addDimension(f.getSize());
-				} else {
-					subject = new ExtensionStats(f.getExt());
-					subject.addDimension(f.getSize());
-					collection.add(subject);
-				}
+				addStat(f, collection);
 			}
 		}
 		
