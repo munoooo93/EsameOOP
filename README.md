@@ -59,7 +59,7 @@ Ricapitolando:
 
 Per il testing è stato creato un account di prova (con relativo **token** per l'accesso) dove abbiamo una cartella così composta:
 
-![Foldlist2.png](https://github.com/munoooo93/EsameOOP/blob/master/img/Foldlist2.png)
+![Foldlist2](https://github.com/munoooo93/EsameOOP/blob/master/img/Foldlist2.jpg)
 
 #### */data*
 
